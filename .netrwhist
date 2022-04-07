@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/etc/my.cnf.d'
+let g:netrw_dirhist_4='/home/track/Code/Learn-Lua/lua5.4'
+let g:netrw_dirhist_3='/etc/my.cnf.d'
+let g:netrw_dirhist_2='/home/track/CTF/HFCTF2022/Rev/fpbe/_fpbe.extracted'
+let g:netrw_dirhist_1='/home/track/CTF/Reverse/HayyimCTF2022/evmatrix'
+let g:netrw_dirhist_0='/home/track/.oh-my-zsh'
+let g:netrw_dirhist_9='/home/track/Downloads'
+let g:netrw_dirhist_8='/home/track/Downloads/open-vm-tools'
+let g:netrw_dirhist_7='/home/track/Blog/themes/cactus/source/css/_highlight'
+let g:netrw_dirhist_6='/home/track/Blog/themes/cactus/source/css/_colors'
