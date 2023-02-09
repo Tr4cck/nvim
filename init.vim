@@ -8,7 +8,6 @@
 
 " TODO
 " lua-scripting
-" auto-completion
 
 
 " ===
@@ -148,21 +147,19 @@ map hex :%!xxd<CR>
 " Open terminal
 map ter :term<CR>
 
-"=====================
-"|                   |
-"|       Plugs       |
-"|                   |
-"=====================
-
+" =============
+" === Plugs ===
+" =============
 call plug#begin('$HOME/.config/nvim/plugged')
 
 " Check my status with <c-r> / " / @
 Plug 'junegunn/vim-peekaboo'
 
 " Status line
-Plug 'ojroques/vim-scrollstatus'
-Plug 'petertriho/nvim-scrollbar'
+" Plug 'ojroques/vim-scrollstatus'
+" Plug 'petertriho/nvim-scrollbar'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " Pretty dress
 Plug 'connorholyday/vim-snazzy'
@@ -242,19 +239,20 @@ Plug 'mg979/vim-xtabline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'wincent/terminus'
 
+" minimap
+Plug 'wfxr/minimap.vim'
+
 call plug#end()
 
 
-"====================
-"|                  |
-"|    PlugConfig    |
-"|                  |
-"====================
-
+" ==================
+" === PlugConfig ===
+" ==================
 " ===
 " === Scroll
 " ===
-let g:airline_section_x = '%{ScrollStatus()}'
+
+" let g:airline_section_x = '%{ScrollStatus()}'
 
 " ===
 " === Colorscheme
@@ -336,3 +334,120 @@ let g:mkdp_page_title = '「${name}」'
 " === Visual enhancement
 " ===
 let g:rainbow_active = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme = 'understated'
+
+" ===
+" === MiniMap
+" ===
+let g:minimap_width = 10
+let g:minimap_auto_start = 1
+let g:minimap_auto_start_win_enter = 1
+
+" =================
+" === Functions ===
+" =================
+noremap <LEADER>r :call Run()<CR>
+func! Run()
+    exec "w"
+    if &filetype == 'python'
+        set splitbelow
+        :sp
+        :term streamlit run %
+        ":term echo %
+    elseif &filetype == 'markdown'
+        set splitbelow
+        :sp
+        :term slidev % --remote
+    endif
+endfunc
+
+func! CheckChineseMark()
+    if search('。')
+        let s:line=search('。')
+        execute s:line . "s/。/\. /g"
+    endif
+
+    if search('，')
+        let s:line=search('，')
+        execute s:line . "s/，/, /g"
+    endif
+
+    if search('；')
+        let s:line=search('；')
+        execute s:line . "s/；/; /g"
+
+    endif
+
+    if  search('？')
+        let s:line=search('？')
+        execute s:line . "s/？/? /g"
+    endif
+
+    if search('：')
+        let s:line=search('：')
+        execute s:line . "s/：/\: /g"
+    endif
+
+    if search('‘')
+        let s:line=search('‘')
+        execute s:line . "s/‘/\ '/g"
+    endif
+
+    if search('’')
+        let s:line=search('’')
+        execute s:line . "s/’/\' /g"
+    endif
+
+    if search('”')
+        let s:line=search('”')
+        execute s:line . "s/”/\" /g"
+    endif
+
+    if search('“')
+        let s:line=search('“')
+        execute s:line . "s/“/\ "/g"
+    endif
+
+    if search('《')
+        let s:line=search('《')
+        execute s:line . "s/《/\ </g"
+    endif
+
+    if search('》')
+        let s:linie=search('》')
+        execute s:line . "s/》/\> /g"
+    endif
+
+    if search('——')
+        let s:line=search('——')
+        execute s:line . "s/——/-/g"
+    endif
+
+    if search('）')
+        let s:line=search('）')
+        execute s:line . "s/）/\) /g"
+    endif
+
+    if search('（')
+        let s:line=search('（')
+        execute s:line . "s/（/\ (/g"
+    endif
+
+    if search('￥')
+        let s:line=search('￥')
+        execute s:line . "s/￥/$/g"
+    endif
+
+    if search('！')
+        let s:line=search('！')
+        execute s:line . "s/！/! /g"
+    endif
+
+    if  search('·')
+        let s:line=search('·')
+        execute s:line . "s/·/`/g"
+    endif
+
+endfunction
+map <C-S> <ESC>:call CheckChineseMark()<ESC>:w<ESC>a
